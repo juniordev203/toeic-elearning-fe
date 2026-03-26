@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 // Get base URL from environment variable, default to the local backend URL for dev
 const baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
@@ -13,12 +14,10 @@ export const customInstance = axios.create({
 // Add a request interceptor to inject the auth token if needed
 customInstance.interceptors.request.use(
   (config) => {
-    // You can retrieve the token from localStorage or cookies here and attach it
-    // Example:
-    // const token = localStorage.getItem('access_token');
-    // if (token) {
-    //   config.headers['Authorization'] = `Bearer ${token}`;
-    // }
+    const token = Cookies.get('access_token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
