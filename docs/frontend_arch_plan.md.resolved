@@ -1,0 +1,69 @@
+# Kiến trúc Frontend: TOEIC Dictation
+
+Kiến trúc này được thiết kế theo hướng **Feature-based Architecture** (tương tự Bulletproof React) để dễ dàng mở rộng và bảo trì khi dự án phát triển thêm các tính năng như Pet ảo hay Vocab Vault.
+
+## 1. Cấu trúc thư mục (Folder Structure)
+
+```text
+src/
+├── api/                  # (ĐÃ DỰNG) Orval generated & Axios instance
+├── app/                  # Next.js App Router (Routes & Pages)
+├── components/           
+│   ├── ui/               # Shadcn UI (Base components)
+│   └── common/           # Shared components (Header, Footer, Layouts)
+├── features/             # TRÁI TIM CỦA APP (Theo Business Logic)
+│   ├── auth/             # Login, Register components & hooks
+│   ├── lessons/          # Lesson list, Filter logic
+│   └── dictation/        # Chế độ luyện nghe (Player, Logic so khớp)
+│       ├── components/   # DictationPlayer, SentenceInput
+│       ├── hooks/        # useDictationEngine (Logic so khớp real-time)
+│       ├── store/        # Zustand (Quản lý trạng thái bài làm)
+│       └── types/        # Các type đặc thù cho dictation
+├── hooks/                # Global/Utility hooks (useDebounce, useLocalStorage)
+├── lib/                  # Shadcn utils, Constants
+└── store/                # Global state (User profile, Settings)
+```
+
+## 2. Luồng xử lý dữ liệu (Data Flow)
+
+### A. Server State (TanStack Query)
+- Sử dụng các hàm từ `src/api/generated` để gọi API.
+- Quản lý Cache, Loading, Error cho các dữ liệu như: Danh sách bài học, Thông tin cá nhân, Lịch sử bài làm.
+
+### B. Client/Session State (Zustand)
+- Dùng cho luồng **Dictation**: Lưu trữ câu hiện tại, văn bản user đang gõ, list kết quả tạm thời của từng câu trong phiên tập.
+- Sẽ bị xóa sạch sau khi hoàn thành và submit lên Backend.
+
+---
+
+## 3. Dictation Engine (Logic cốt lõi)
+
+Chúng ta sẽ xây dựng một Custom Hook: `useDictationEngine`.
+
+**Nhiệm vụ:**
+- Quản lý đồng bộ giữa Audio và Text.
+- **Real-time Comparison**: So khớp từng ký tự ngay khi người dùng gõ (onKeyDown).
+- Mapping kết quả (Đúng -> Xanh, Sai -> Đỏ) cho từng ký tự hiển thị trên màn hình.
+
+---
+
+## 4. Công cụ & Thư viện sử dụng (Tech Stack)
+
+| Thành phần | Công cụ |
+|:---|:---|
+| **Framework** | Next.js 15+ (App Router) |
+| **Styling** | Tailwind CSS + Shadcn UI |
+| **API Client** | Orval (Axios) - *Đã setup* |
+| **Data Fetching** | TanStack Query v5 |
+| **State** | Zustand (Nhẹ và nhanh hơn Context cho logic phức tạp) |
+| **Icons** | Lucide React |
+
+---
+
+## 5. Quy chuẩn Coding (Best Practices)
+
+1. **Separation of Concerns**: Logic gõ sướng, so khớp chuỗi... phải nằm trong Hook, không để trong Component UI.
+2. **Accessiblity**: Chú ý phím tắt (Space để pause/play, Enter để sang câu tiếp).
+3. **No Placeholders**: Sử dụng Audio thật và nội dung chuẩn từ Backend.
+
+Trình tự coding sẽ bắt đầu từ **Feature: Lessons** (Trang danh sách) trước khi vào **Feature: Dictation** (Player chính).
