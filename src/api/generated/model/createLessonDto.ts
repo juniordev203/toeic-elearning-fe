@@ -5,7 +5,16 @@
  * The TOEIC Dictation MVP API description
  * OpenAPI spec version: 1.0
  */
+import type { CreateLessonDtoDifficulty } from './createLessonDtoDifficulty';
+import type { CreateLessonDtoPartType } from './createLessonDtoPartType';
+import type { CreateSentenceDto } from './createSentenceDto';
 
 export interface CreateLessonDto {
-  [key: string]: unknown;
+  title: string;
+  description?: string;
+  part_type: CreateLessonDtoPartType;
+  audio_url: string;
+  duration_seconds: number;
+  difficulty?: CreateLessonDtoDifficulty;
+  sentences: CreateSentenceDto[];
 }

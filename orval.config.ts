@@ -9,7 +9,6 @@ export default defineConfig({
       workspace: 'src/api/generated',
       target: 'api.ts', // Sub-folder/file where the api calls will be output
       schemas: 'model', // Sub-folder where DTO and Response types will go
-      client: 'axios', // Generate standard axios calls, NOT hooks
       clean: true, // Clean output folder before generating
       override: {
         mutator: {

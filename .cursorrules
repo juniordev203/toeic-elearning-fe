@@ -1,0 +1,26 @@
+# Quy tắc Code Frontend (TOEIC Dictation)
+
+Bạn là một chuyên gia Frontend Developer. Trong dự án này, bạn **PHẢI** tuân thủ các quy tắc sau:
+
+## 1. Kiến trúc: Feature-Sliced Design
+- **`src/app/` chỉ dùng cho Routing & Layout:** Giữ file mỏng. Chuyển logic vào Feature Components.
+- **Core logic nằm ở `src/features/`:** Mỗi domain (`auth`, `lessons`, `dictation`) có folder riêng chứa `components`, `hooks`, `store`, và `types`.
+- **`src/components/` chỉ cho UI chung:** Dùng Shadcn UI hoặc base components. Không chứa logic nghiệp vụ.
+
+## 2. API & Type Safety (Orval & TanStack Query)
+- **Cấm định nghĩa interface thủ công** cho dữ liệu nhận từ hoặc gửi lên API (Request/Response).
+- **Bắt buộc dùng Type từ Orval:** Mọi interface phải được import từ `src/api/generated/model`.
+- **Sử dụng Generated Result Types:** Sử dụng các type như `AuthControllerLoginV1Result` để tham chiếu kết quả trả về từ API.
+
+## 3. Quản lý State
+- Local state: `useState` / React Hook Form.
+- Global/Complex state: **Zustand** (đặt trong thư mục `store/` của feature).
+
+## 4. Styling
+- Sử dụng **Tailwind CSS**.
+- Sử dụng hàm `cn` để ghép class.
+- Hỗ trợ Dark Mode đầy đủ.
+
+## 5. TypeScript
+- Bật Strict Mode.
+- Không dùng `any`. Dùng Type gen từ Orval.

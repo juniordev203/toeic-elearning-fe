@@ -15,7 +15,7 @@ export const customInstance = axios.create({
 customInstance.interceptors.request.use(
   (config) => {
     const token = Cookies.get('access_token');
-    if (token) {
+    if (token && token !== 'undefined') {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;

@@ -5,102 +5,100 @@
  * The TOEIC Dictation MVP API description
  * OpenAPI spec version: 1.0
  */
-import type { LoginDto, RegisterDto } from '../model';
+import type {
+  LoginDto,
+  LoginResponseDto,
+  RefreshTokensResponseDto,
+  RegisterDto,
+  RegisterResponseDto,
+  UserProfileDto,
+} from '../model';
 
 import { customAxiosInstance } from '../../axios-instance';
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-export const getAuth = () => {
-  /**
-   * @summary Register a new user
-   */
-  const authControllerRegisterV1 = (
-    registerDto: RegisterDto,
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      {
-        url: `/api/v1/auth/register`,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        data: registerDto,
-      },
-      options,
-    );
-  };
-  /**
-   * @summary Login user
-   */
-  const authControllerLoginV1 = (
-    loginDto: LoginDto,
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      {
-        url: `/api/v1/auth/login`,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        data: loginDto,
-      },
-      options,
-    );
-  };
-  /**
-   * @summary Logout user
-   */
-  const authControllerLogoutV1 = (
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      { url: `/api/v1/auth/logout`, method: 'POST' },
-      options,
-    );
-  };
-  /**
-   * @summary Refresh access token
-   */
-  const authControllerRefreshTokensV1 = (
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      { url: `/api/v1/auth/refresh`, method: 'POST' },
-      options,
-    );
-  };
-  /**
-   * @summary Get current user profile
-   */
-  const authControllerGetProfileV1 = (
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      { url: `/api/v1/auth/profile`, method: 'GET' },
-      options,
-    );
-  };
-  return {
-    authControllerRegisterV1,
-    authControllerLoginV1,
-    authControllerLogoutV1,
-    authControllerRefreshTokensV1,
-    authControllerGetProfileV1,
-  };
+/**
+ * @summary Register a new user
+ */
+export const authControllerRegisterV1 = (
+  registerDto: RegisterDto,
+  options?: SecondParameter<typeof customAxiosInstance<RegisterResponseDto>>,
+) => {
+  return customAxiosInstance<RegisterResponseDto>(
+    {
+      url: `/api/v1/auth/register`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: registerDto,
+    },
+    options,
+  );
+};
+/**
+ * @summary Login user
+ */
+export const authControllerLoginV1 = (
+  loginDto: LoginDto,
+  options?: SecondParameter<typeof customAxiosInstance<LoginResponseDto>>,
+) => {
+  return customAxiosInstance<LoginResponseDto>(
+    {
+      url: `/api/v1/auth/login`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: loginDto,
+    },
+    options,
+  );
+};
+/**
+ * @summary Logout user
+ */
+export const authControllerLogoutV1 = (
+  options?: SecondParameter<typeof customAxiosInstance<void>>,
+) => {
+  return customAxiosInstance<void>(
+    { url: `/api/v1/auth/logout`, method: 'POST' },
+    options,
+  );
+};
+/**
+ * @summary Refresh access token
+ */
+export const authControllerRefreshTokensV1 = (
+  options?: SecondParameter<
+    typeof customAxiosInstance<RefreshTokensResponseDto>
+  >,
+) => {
+  return customAxiosInstance<RefreshTokensResponseDto>(
+    { url: `/api/v1/auth/refresh`, method: 'POST' },
+    options,
+  );
+};
+/**
+ * @summary Get current user profile
+ */
+export const authControllerGetProfileV1 = (
+  options?: SecondParameter<typeof customAxiosInstance<UserProfileDto>>,
+) => {
+  return customAxiosInstance<UserProfileDto>(
+    { url: `/api/v1/auth/profile`, method: 'GET' },
+    options,
+  );
 };
 export type AuthControllerRegisterV1Result = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof getAuth>['authControllerRegisterV1']>>
+  Awaited<ReturnType<typeof authControllerRegisterV1>>
 >;
 export type AuthControllerLoginV1Result = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof getAuth>['authControllerLoginV1']>>
+  Awaited<ReturnType<typeof authControllerLoginV1>>
 >;
 export type AuthControllerLogoutV1Result = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof getAuth>['authControllerLogoutV1']>>
+  Awaited<ReturnType<typeof authControllerLogoutV1>>
 >;
 export type AuthControllerRefreshTokensV1Result = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getAuth>['authControllerRefreshTokensV1']>
-  >
+  Awaited<ReturnType<typeof authControllerRefreshTokensV1>>
 >;
 export type AuthControllerGetProfileV1Result = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof getAuth>['authControllerGetProfileV1']>>
+  Awaited<ReturnType<typeof authControllerGetProfileV1>>
 >;

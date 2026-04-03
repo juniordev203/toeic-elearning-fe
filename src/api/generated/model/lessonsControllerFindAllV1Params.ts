@@ -5,6 +5,8 @@
  * The TOEIC Dictation MVP API description
  * OpenAPI spec version: 1.0
  */
+import type { LessonsControllerFindAllV1Difficulty } from './lessonsControllerFindAllV1Difficulty';
+import type { LessonsControllerFindAllV1PartType } from './lessonsControllerFindAllV1PartType';
 
 export type LessonsControllerFindAllV1Params = {
   /**
@@ -15,4 +17,7 @@ export type LessonsControllerFindAllV1Params = {
    * @minimum 1
    */
   limit?: number;
+  part_type?: LessonsControllerFindAllV1PartType;
+  difficulty?: LessonsControllerFindAllV1Difficulty;
+  search?: string;
 };

@@ -5,7 +5,13 @@
  * The TOEIC Dictation MVP API description
  * OpenAPI spec version: 1.0
  */
+import type { SubmitAttemptDetailDto } from './submitAttemptDetailDto';
+import type { SubmitAttemptDtoDifficultyMode } from './submitAttemptDtoDifficultyMode';
 
 export interface SubmitAttemptDto {
-  [key: string]: unknown;
+  lesson_id: string;
+  difficulty_mode: SubmitAttemptDtoDifficultyMode;
+  details: SubmitAttemptDetailDto[];
+  started_at: string;
+  completed_at: string;
 }

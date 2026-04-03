@@ -6,6 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 import type {
+  AttemptListResponseDto,
+  AttemptResponseDto,
   AttemptsControllerFindUserAttemptsV1Params,
   SubmitAttemptDto,
 } from '../model';
@@ -14,68 +16,53 @@ import { customAxiosInstance } from '../../axios-instance';
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-export const getAttempts = () => {
-  /**
-   * @summary Submit a new dictation attempt
-   */
-  const attemptsControllerSubmitV1 = (
-    submitAttemptDto: SubmitAttemptDto,
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      {
-        url: `/api/v1/attempts`,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        data: submitAttemptDto,
-      },
-      options,
-    );
-  };
-  /**
-   * @summary Get current user attempts history
-   */
-  const attemptsControllerFindUserAttemptsV1 = (
-    params: AttemptsControllerFindUserAttemptsV1Params,
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      { url: `/api/v1/attempts`, method: 'GET', params },
-      options,
-    );
-  };
-  /**
-   * @summary Get details of a specific attempt
-   */
-  const attemptsControllerFindOneV1 = (
-    id: string,
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      { url: `/api/v1/attempts/${id}`, method: 'GET' },
-      options,
-    );
-  };
-  return {
-    attemptsControllerSubmitV1,
-    attemptsControllerFindUserAttemptsV1,
-    attemptsControllerFindOneV1,
-  };
+/**
+ * @summary Submit a new dictation attempt
+ */
+export const attemptsControllerSubmitV1 = (
+  submitAttemptDto: SubmitAttemptDto,
+  options?: SecondParameter<typeof customAxiosInstance<AttemptResponseDto>>,
+) => {
+  return customAxiosInstance<AttemptResponseDto>(
+    {
+      url: `/api/v1/attempts`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: submitAttemptDto,
+    },
+    options,
+  );
+};
+/**
+ * @summary Get current user attempts history
+ */
+export const attemptsControllerFindUserAttemptsV1 = (
+  params: AttemptsControllerFindUserAttemptsV1Params,
+  options?: SecondParameter<typeof customAxiosInstance<AttemptListResponseDto>>,
+) => {
+  return customAxiosInstance<AttemptListResponseDto>(
+    { url: `/api/v1/attempts`, method: 'GET', params },
+    options,
+  );
+};
+/**
+ * @summary Get details of a specific attempt
+ */
+export const attemptsControllerFindOneV1 = (
+  id: string,
+  options?: SecondParameter<typeof customAxiosInstance<AttemptResponseDto>>,
+) => {
+  return customAxiosInstance<AttemptResponseDto>(
+    { url: `/api/v1/attempts/${id}`, method: 'GET' },
+    options,
+  );
 };
 export type AttemptsControllerSubmitV1Result = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getAttempts>['attemptsControllerSubmitV1']>
-  >
+  Awaited<ReturnType<typeof attemptsControllerSubmitV1>>
 >;
 export type AttemptsControllerFindUserAttemptsV1Result = NonNullable<
-  Awaited<
-    ReturnType<
-      ReturnType<typeof getAttempts>['attemptsControllerFindUserAttemptsV1']
-    >
-  >
+  Awaited<ReturnType<typeof attemptsControllerFindUserAttemptsV1>>
 >;
 export type AttemptsControllerFindOneV1Result = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getAttempts>['attemptsControllerFindOneV1']>
-  >
+  Awaited<ReturnType<typeof attemptsControllerFindOneV1>>
 >;

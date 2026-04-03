@@ -7,6 +7,8 @@
  */
 import type {
   CreateLessonDto,
+  LessonListResponseDto,
+  LessonResponseDto,
   LessonsControllerFindAllV1Params,
 } from '../model';
 
@@ -14,66 +16,53 @@ import { customAxiosInstance } from '../../axios-instance';
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-export const getLessons = () => {
-  /**
-   * @summary Get all lessons with pagination and filters
-   */
-  const lessonsControllerFindAllV1 = (
-    params?: LessonsControllerFindAllV1Params,
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      { url: `/api/v1/lessons`, method: 'GET', params },
-      options,
-    );
-  };
-  /**
-   * @summary Create a new lesson (Admin)
-   */
-  const lessonsControllerCreateV1 = (
-    createLessonDto: CreateLessonDto,
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      {
-        url: `/api/v1/lessons`,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        data: createLessonDto,
-      },
-      options,
-    );
-  };
-  /**
-   * @summary Get a specific lesson by ID (Protected)
-   */
-  const lessonsControllerFindOneV1 = (
-    id: string,
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      { url: `/api/v1/lessons/${id}`, method: 'GET' },
-      options,
-    );
-  };
-  return {
-    lessonsControllerFindAllV1,
-    lessonsControllerCreateV1,
-    lessonsControllerFindOneV1,
-  };
+/**
+ * @summary Get all lessons with pagination and filters
+ */
+export const lessonsControllerFindAllV1 = (
+  params?: LessonsControllerFindAllV1Params,
+  options?: SecondParameter<typeof customAxiosInstance<LessonListResponseDto>>,
+) => {
+  return customAxiosInstance<LessonListResponseDto>(
+    { url: `/api/v1/lessons`, method: 'GET', params },
+    options,
+  );
+};
+/**
+ * @summary Create a new lesson (Admin)
+ */
+export const lessonsControllerCreateV1 = (
+  createLessonDto: CreateLessonDto,
+  options?: SecondParameter<typeof customAxiosInstance<LessonResponseDto>>,
+) => {
+  return customAxiosInstance<LessonResponseDto>(
+    {
+      url: `/api/v1/lessons`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: createLessonDto,
+    },
+    options,
+  );
+};
+/**
+ * @summary Get a specific lesson by ID (Protected)
+ */
+export const lessonsControllerFindOneV1 = (
+  id: string,
+  options?: SecondParameter<typeof customAxiosInstance<LessonResponseDto>>,
+) => {
+  return customAxiosInstance<LessonResponseDto>(
+    { url: `/api/v1/lessons/${id}`, method: 'GET' },
+    options,
+  );
 };
 export type LessonsControllerFindAllV1Result = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getLessons>['lessonsControllerFindAllV1']>
-  >
+  Awaited<ReturnType<typeof lessonsControllerFindAllV1>>
 >;
 export type LessonsControllerCreateV1Result = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getLessons>['lessonsControllerCreateV1']>
-  >
+  Awaited<ReturnType<typeof lessonsControllerCreateV1>>
 >;
 export type LessonsControllerFindOneV1Result = NonNullable<
-  Awaited<
-    ReturnType<ReturnType<typeof getLessons>['lessonsControllerFindOneV1']>
-  >
+  Awaited<ReturnType<typeof lessonsControllerFindOneV1>>
 >;

@@ -1,4 +1,9 @@
+'use client';
+
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { UserNav } from '@/features/auth/components/UserNav';
 
 export default function UserLayout({
   children,
@@ -7,32 +12,27 @@ export default function UserLayout({
 }) {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* TODO: Add User Header */}
-      <header className="border-b bg-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold font-sans">TOEIC Dictation</h1>
-          <nav>
-            <ul className="flex space-x-4">
-              <li>
-                <Link href="/" className="hover:text-blue-600">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/lessons" className="hover:text-blue-600">
-                  Lessons
-                </Link>
-              </li>
-            </ul>
+      <header className="border-b bg-background">
+        <div className="container mx-auto flex items-center justify-between px-4 py-5">
+          <Link href="/" className="text-xl font-bold">
+            TOEIC Dictation
+          </Link>
+          <nav className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/lessons">Lessons</Link>
+            </Button>
+
+            <Separator orientation="vertical" className="h-5" />
+
+            <UserNav />
           </nav>
         </div>
       </header>
 
-      <main className="flex-1 container mx-auto py-8">{children}</main>
+      <main className="flex-1 container mx-auto px-4 py-8">{children}</main>
 
-      {/* TODO: Add User Footer */}
-      <footer className="border-t bg-gray-50 p-8">
-        <div className="container mx-auto text-center text-gray-500">
+      <footer className="border-t bg-muted/50">
+        <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
           © 2026 TOEIC Dictation MVP
         </div>
       </footer>

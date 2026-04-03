@@ -9,17 +9,11 @@ import { customAxiosInstance } from '../../axios-instance';
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-export const getApp = () => {
-  const appControllerGetHelloV1 = (
-    options?: SecondParameter<typeof customAxiosInstance<void>>,
-  ) => {
-    return customAxiosInstance<void>(
-      { url: `/api/v1`, method: 'GET' },
-      options,
-    );
-  };
-  return { appControllerGetHelloV1 };
+export const appControllerGetHelloV1 = (
+  options?: SecondParameter<typeof customAxiosInstance<void>>,
+) => {
+  return customAxiosInstance<void>({ url: `/api/v1`, method: 'GET' }, options);
 };
 export type AppControllerGetHelloV1Result = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof getApp>['appControllerGetHelloV1']>>
+  Awaited<ReturnType<typeof appControllerGetHelloV1>>
 >;
